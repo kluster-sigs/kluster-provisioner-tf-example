@@ -4,5 +4,7 @@ provider "proxmox" {
 
   # because self-signed TLS certificate is in use
   insecure = true
+
+  random_vm_ids = true
 }
 

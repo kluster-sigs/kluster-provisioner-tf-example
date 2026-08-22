@@ -32,7 +32,6 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
   tags        = ["terraform", "ubuntu"]
 
   node_name     = "PVE-Node-01"
-  random_vm_ids = true
 
   agent {
     enabled = false
