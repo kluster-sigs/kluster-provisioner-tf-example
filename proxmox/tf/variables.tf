@@ -1,21 +1,3 @@
-# User Variables
-variable "proxmox_api_url" {
-  type = string
-}
-
-variable "proxmox_api_token" {
-  type      = string
-  sensitive = true
-}
-
-
-
-# Kluster Variables
-variable "name" {
-  description = "Virtual machine name"
-  type        = string
-}
-
 variable "cpu" {
   description = "Number of CPU cores"
   type        = number
@@ -29,6 +11,20 @@ variable "memory" {
 variable "disk" {
   description = "Disk size in GiB"
   type        = number
+}
+
+
+
+
+
+# User Variables
+variable "proxmox_api_url" {
+  type = string
+}
+
+variable "proxmox_api_token" {
+  type      = string
+  sensitive = true
 }
 
 variable "bridge" {
@@ -45,9 +41,3 @@ variable "os_filename" {
   description = "Proxmox image used to create the virtual machine"
   type        = string
 }
-
-variable "os_filepath" {
-  description = "Proxmox image used to create the virtual machine"
-  type        = string
-}
-

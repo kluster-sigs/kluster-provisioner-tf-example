@@ -18,7 +18,7 @@ resource "proxmox_virtual_environment_file" "ubuntu_24_noble" {
 
   source_file {
     path = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-    file_name = "noble-server-cloudimg-amd64.qcow2"
+    file_name = var.os_filename 
   }
 
   overwrite = true
@@ -27,12 +27,12 @@ resource "proxmox_virtual_environment_file" "ubuntu_24_noble" {
 
 
 resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
-  name        = var.name
+  name        = var.kluster_machine_name
   description = "Managed by OpenTofu"
   tags        = ["terraform", "ubuntu"]
 
-  node_name = "PVE-Node-01"
-  vm_id     = 4321
+  node_name     = "PVE-Node-01"
+  random_vm_ids = true
 
   agent {
     enabled = false
@@ -58,7 +58,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
 
   disk {
     datastore_id = "zfs-pool-01"
-    import_from  = var.image
+    import_from  = var.os_filename
     interface    = "scsi0"
     size         = var.disk
   }
@@ -83,7 +83,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
   }
 
   network_device {
-    bridge = var.network_bridge
+    bridge = var.bridge
   }
 
   operating_system {
