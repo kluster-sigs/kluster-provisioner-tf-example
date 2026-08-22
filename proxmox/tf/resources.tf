@@ -57,7 +57,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
 
   disk {
     datastore_id = "zfs-pool-01"
-    import_from  = var.os_filename
+    import_from  = proxmox_virtual_environment_file.ubuntu_24_noble.id
     interface    = "scsi0"
     size         = var.disk
   }
