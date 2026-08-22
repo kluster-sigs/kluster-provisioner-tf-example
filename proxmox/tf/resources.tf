@@ -9,23 +9,6 @@ resource "tls_private_key" "ubuntu_vm" {
   rsa_bits  = 2048
 }
 
-
-
-resource "proxmox_virtual_environment_file" "ubuntu_24_noble" {
-  content_type = "import"
-  datastore_id = "local"
-  node_name    = "PVE-Node-01"
-
-  source_file {
-    path = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-    file_name = var.os_filename 
-  }
-
-  overwrite = true
-}
-
-
-
 resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
   name        = var.kluster_machine_name
   description = "Managed by OpenTofu"
@@ -57,7 +40,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
 
   disk {
     datastore_id = "zfs-pool-01"
-    import_from  = proxmox_virtual_environment_file.ubuntu_24_noble.id
+    import_from  = var.os_filename
     interface    = "scsi0"
     size         = var.disk
   }
